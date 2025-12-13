@@ -1,3 +1,3 @@
 # Alioune
 
-Projet en julia en informatique 
+Projet informatique 
