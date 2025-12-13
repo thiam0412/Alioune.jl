@@ -1,7 +1,2 @@
 # Alioune
-
-
-
-
-
-
+Projet en julia 
