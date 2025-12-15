@@ -1,6 +1,7 @@
 
 module Engine
 using Plots 
+gr(; display=false)
 
 
 """
