@@ -1,39 +1,29 @@
 
-module UI 
-using Bonito 
-using Plots
 using Alioune
+using Plots
 
-app = App() do
+v0 = 20.0
+h0 = 2.0
+θ  = deg2rad(45.0)
+g  = 9.81
 
-    # --- Entrées utilisateur (équivalent Entry / Combobox) ---
-    v0 = Slider(0:0.5:50, value=10, label="Vitesse initiale (m/s)")
-    h0 = Slider(0:0.5:20, value=2, label="Hauteur initiale (m)")
-    angle = Slider(0:1:90, value=45, label="Angle (degrés)")
+# Trajectoire
+f = Alioune.Engine.get_equation(v0, h0, θ, g)
 
-    btn = Button("VIEW")
+temps = 0:0.2:10
+x_vals = v0 * cos(θ) .* temps
+y_vals = [f(t) for t in temps]
 
-    output = Node()  # zone d’affichage du graphique
+# Création du graphique
+p = plot(
+    x_vals,
+    y_vals,
+    xlabel = "Distance (m)",
+    ylabel = "Hauteur (m)",
+    title  = "Trajectoire du projectile",
+    legend = false
+)
 
-    # --- Action du bouton (équivalent view()) ---
-    on(btn.clicks) do _
-        θ = deg2rad(angle[])
-        f = Alioune.Engine.get_equation(v0[], h0[], θ, 9.81)
-        p = Alioune.Engine.plot_trajectory(f)
-        output[] = p
-    end
+savefig(p, "projectile.png")
 
-    # --- Mise en page ---
-    Column(
-        Row(
-            Column(v0, h0, angle, btn),
-            output
-        )
-    )
-end
-
-
-Bonito.run(app)
-
-end 
-
+println(" Graphique sauvegardé dans projectile.png")

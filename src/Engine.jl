@@ -1,7 +1,6 @@
 
 module Engine
 using Plots 
-gr(; display=false)
 
 
 """
@@ -129,5 +128,6 @@ function plot_trajectory(f::Function; checkpoints::Int=100)
 end
 
 end
+
 
 
